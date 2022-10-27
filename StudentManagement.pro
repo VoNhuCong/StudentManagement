@@ -31,4 +31,6 @@ HEADERS += \
     classes/student.h \
     classes/teacher.h
 
-DISTFILES +=
+DISTFILES += \
+    resource/HidePassIcon.png \
+    resource/ShowPassIcon.png

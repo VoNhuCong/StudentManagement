@@ -5,17 +5,22 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QDir>
+#include <QVector>
+#include "student.h"
+
+#define DATABASEMANAGER ConnectSQL::getInstance()
 
 class ConnectSQL
 {
 public:
     ConnectSQL();
     void initTable();
-    void insertNewStudent(int studentId, QString name, QString date, QString graduate);
+    void insertNewStudent(int studentId, QString name, QString date, QString graduate, int teacherId);
     bool insertNewTeacher(int id, QString name, QString pass);
     void deleteStudent(int studentId);
     void genData();
     int checkAccount(QString name, QString password);
+    QVector<QObject*> getAllStudentByTeachId(int teacherId);
     static ConnectSQL *getInstance();
 
 

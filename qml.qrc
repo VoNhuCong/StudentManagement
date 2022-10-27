@@ -1,7 +1,8 @@
 <RCC>
     <qresource prefix="/">
-	<file>qml/main.qml</file>
+        <file>qml/main.qml</file>
         <file>qml/StudentList.qml</file>
         <file>qml/Login.qml</file>
+        <file>qml/popupCreateStudent.qml</file>
     </qresource>
 </RCC>

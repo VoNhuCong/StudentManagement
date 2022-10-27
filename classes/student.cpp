@@ -1,17 +1,29 @@
 #include "student.h"
 
-Student::Student(QObject *parent)
-    : QObject{parent}
+//Student::Student(QObject *parent)
+//    : QObject{parent}
+//{
+//}
+
+Student::Student()
 {
 
 }
 
-void Student::setStudentName(QString name)
+Student::Student(int index, QString name, QDate date, QString graduate)
+{
+    _studentName = name;
+    _date = date;
+    _graduate = graduate;
+    _studentId =  index;
+}
+
+void Student::setNameStudent(QString name)
 {
     _studentName = name;
 }
 
-void Student::setDate(QString date)
+void Student::setDate(QDate date)
 {
     _date = date;
 }
@@ -26,12 +38,17 @@ void Student::setStudentId(int studentId)
     _studentId = studentId;
 }
 
+void Student::setTeacherId(int teacherid)
+{
+    _teacherId = teacherid;
+}
+
 QString Student::getStudentName()
 {
     return _studentName;
 }
 
-QString Student::getDate()
+QDate Student::getDate()
 {
     return _date;
 }
@@ -44,4 +61,14 @@ QString Student::getGraduate()
 int Student::getStudentId()
 {
     return _studentId;
+}
+
+QString Student::studentName() const
+{
+    return _studentName;
+}
+
+void Student::setStudentName(const QString &studentName)
+{
+
 }

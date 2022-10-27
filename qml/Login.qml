@@ -93,19 +93,19 @@ Item {
                             verticalCenter: passwordBox.verticalCenter
                         }
                         icon.name: "showHidePass"
-                        icon.source: "/images/ShowPassIcon.png"
+                        icon.source: "/resource/ShowPassIcon.png"
                         icon.width: 36
                         icon.height: 36
                         icon.color: "transparent"
                         //                enabled: idPassWordInput.text != ""
                         onClicked: {
-                            if(icon.source == "/images/ShowPassIcon.png"){
-                                icon.source = "/images/HidePassIcon.png"
+                            if(icon.source == "/resource/ShowPassIcon.png"){
+                                icon.source = "/resource/HidePassIcon.png"
                                 idPassWordInput.echoMode = 0
                                 idPassWordInput.echoMode = TextInput.Nomal //Show Pass
                             }
                             else{
-                                icon.source = "/images/ShowPassIcon.png"
+                                icon.source = "/resource/ShowPassIcon.png"
                                 idPassWordInput.echoMode = TextInput.Password //Hide Pass
                             }
                         }

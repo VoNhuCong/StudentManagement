@@ -1,5 +1,6 @@
 #include "connectsql.h"
 #include <QDebug>
+#include "student.h"
 
 
 ConnectSQL* ConnectSQL::_connectSql = NULL;
@@ -19,18 +20,18 @@ void ConnectSQL::initTable()
     }
     QSqlQuery query;
     query.exec("create table students (id primary key, "
-               "name varchar(50), date varchar(50), graduate varchar(20))");
+               "name varchar(50), date date, graduate varchar(20), teacherId varchar(20))");
     query.exec("create table teachers (id primary key, "
                "name varchar(50), pass varchar(50))");
 }
 
-void ConnectSQL::insertNewStudent(int studentId, QString name, QString date, QString graduate)
+void ConnectSQL::insertNewStudent(int studentId, QString name, QString date, QString graduate, int teacherId)
 {
     if (!_myDb.open()) {
         return;
     }
     QSqlQuery query;
-    QString newStudent = QString("insert into students values(%1, '%2', '%3', '%4')").arg(studentId).arg(name).arg(date).arg(graduate);
+    QString newStudent = QString("insert into students values(%1, '%2', '%3', '%4', '%5')").arg(studentId).arg(name).arg(date).arg(graduate).arg(teacherId);
     query.exec(newStudent);
     qDebug() << __FUNCTION__ << newStudent;
     qDebug() << __FUNCTION__ << "Insert new student successfully";
@@ -70,7 +71,7 @@ void ConnectSQL::genData()
 {
     for(int i = 0; i < 100; i ++){
         QString name = QString("vonhucong%1").arg(i);
-        insertNewStudent(i, "vonhucong", "dsd", "dsdsd");
+        insertNewStudent(i, "vonhucong", "11/11/2002", "dsdsd", 123);
     }
     for(int i = 0; i < 100; i ++){
         QString name = QString("vonhucong%1").arg(i);
@@ -98,6 +99,31 @@ int ConnectSQL::checkAccount(QString name, QString password)
     }
     catch (_exception e) {
        return -1;
+    }
+}
+
+QVector<QObject *> ConnectSQL::getAllStudentByTeachId(int teacherId)
+{
+    //SELECT * FROM students WHERE teacherId = 0
+    QString newQuery = QString("SELECT * FROM students WHERE teacherId = %1").arg(teacherId);
+    QSqlQuery query;
+    QVector<QObject *> studentList;
+    try {
+        query.exec(newQuery);
+        while(query.next()){
+            Student* student = new Student();
+            student->setStudentId(query.value(0).toInt());
+            student->setNameStudent(query.value(1).toString());
+            QString date = query.value(2).toString();
+            QDate dateStudent = QDate::fromString(date,"dd/MM/yyyy");
+            student->setDate(dateStudent);
+            student->setGraduate(query.value(3).toString());
+            student->setTeacherId(query.value(4).toInt());
+            studentList.push_back(student);
+        }
+        return studentList;
+    }
+    catch (_exception e) {
     }
 }
 

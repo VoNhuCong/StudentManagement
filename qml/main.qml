@@ -4,7 +4,7 @@ import QtQuick.Controls 2.5
 
 Window {
     width: 1080
-    height: 800
+    height: 600
     visible: true
     title: qsTr("StudentManagement")
 

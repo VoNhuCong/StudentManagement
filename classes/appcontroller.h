@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include "teacher.h"
-#include "connectsql.h"
 
 class AppController : public QObject
 {

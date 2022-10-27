@@ -1,9 +1,11 @@
 #include "appcontroller.h"
 #include <QRandomGenerator>
+#include "classes/connectsql.h"
 
 AppController::AppController()
 {
     _appScreenId = 0;
+    _teacher = new Teacher();
 }
 
 int AppController::appScreenId()
@@ -28,21 +30,23 @@ QString AppController::messBox()
     return _messBox;
 }
 
-Teacher *AppController::getCurTeacher()
+Teacher* AppController::getCurTeacher()
 {
     return _teacher;
 }
 
 void AppController::checkLogin(QString name, QString password)
 {
-    _teacher = new Teacher();
     _teacher->setTeacherName(name);
     _teacher->setTeacherPassword(password);
-    int teacherId = ConnectSQL::getInstance()->checkAccount(name, password);
+    int teacherId = DATABASEMANAGER->checkAccount(name, password);
     if(teacherId != -1){
         _teacher->setTeacherId(teacherId);
         setMessBox("Login Sucessfully");
-        setAppScreenId(1);
+        _teacher->setStudentList1(DATABASEMANAGER->getAllStudentByTeachId(teacherId));
+        emit _teacher->studentListChanged(_teacher->studentList());
+        setAppScreenId(1);       
+        // add student list to layout
     }else{
         setMessBox("Login Failed");
     }
@@ -56,7 +60,7 @@ QString AppController::checkMessBox()
 void AppController::checkCreateAccout(QString accout, QString password)
 {
     int newId = QRandomGenerator::global()->bounded(10000, 99999);
-    if(ConnectSQL::getInstance()->insertNewTeacher(newId, accout, password))
+    if(DATABASEMANAGER->insertNewTeacher(newId, accout, password))
     {
         setMessBox("Create new account sucessfully");
     }else{
