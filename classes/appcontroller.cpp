@@ -43,7 +43,7 @@ void AppController::checkLogin(QString name, QString password)
     if(teacherId != -1){
         _teacher->setTeacherId(teacherId);
         setMessBox("Login Sucessfully");
-        _teacher->setStudentList1(DATABASEMANAGER->getAllStudentByTeachId(teacherId));
+        _teacher->setStudentList(DATABASEMANAGER->getAllStudentByTeachId(teacherId));
         emit _teacher->studentListChanged(_teacher->studentList());
         setAppScreenId(1);       
         // add student list to layout

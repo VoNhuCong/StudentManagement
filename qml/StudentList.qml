@@ -34,14 +34,17 @@ Item {
     ToolBar {
         id: toolBarBottom
         width: parent.width
-        y: parent.height - 30
+        y: parent.height - 36
             RowLayout {
                 anchors.fill: parent
                 width: parent.width
                 ToolButton {
                     id: ddd
                     text: qsTr("New Student")
-                    onClicked: popupCreateStudent.open()
+                    font.pixelSize: 16
+                    onClicked: {
+                        popupCreateStudent.open()
+                    }
                 }
                 Label {
                     text: ""
@@ -52,7 +55,12 @@ Item {
                 }
                 ToolButton {
                     text: qsTr("Clear All")
-                    onClicked: Qt.quit()
+                    font.pixelSize: 16
+
+                    onClicked: {
+                        console.log("deleteall")
+                        Teacher.deleteAllStudents
+                    }
                 }
         }
     }
@@ -89,8 +97,9 @@ Item {
         id: idListView
         y: toolBarTop.height + 50
         width: 1080
-        height: 600 - toolBarTop.height - toolBarBottom.height
+        height: 600 - toolBarTop.height - toolBarBottom.height - 50
         clip: true
+        visible: true
 
         Rectangle {
             color: "white"
@@ -126,31 +135,39 @@ Item {
                 x: 10
                 text: modelData.studentId
                 font.pixelSize: 32
-                color: "black"
             }
             Text {
                 id: nameStudentListView
                 x: parent.width/4 - 100
                 text: modelData.studentName
                 font.pixelSize: 32
-                color: "black"
             }
             Text {
                 id: dateStudentListView
                 x: parent.width/2
                 text: modelData.studentDate
                 font.pixelSize: 32
-                color: "black"
             }
             Text {
                 id: graduateStudentListView
                 x: parent.width*3/4
                 text: modelData.studentGraduate
                 font.pixelSize: 32
-                color: "black"
             }
-
+            Button {
+                id: delStudentListView
+                x: parent.width - 80
+                y: 10
+                height: 30
+                width: 30
+                text: "del"
+                onClicked:{
+                    console.log("delete:", index)
+                    Teacher.deleteStudentByPos(index)
+                }
+            }
         }
+
     }
     // -----------------------POPUP CREATE STUDENT-----------------------//
     Popup {
@@ -159,7 +176,8 @@ Item {
         x: parent.width/2
         y: parent.height/2
         width: 600
-        height: 400
+        height: 500
+
         modal: true
         focus: true
         closePolicy: popupCreateStudent.CloseOnEscape | popupCreateStudent.CloseOnPressOutsideParent
@@ -347,13 +365,13 @@ Item {
             {
                 id: contentMessPopupBox
                 Text {
-                    id: contentTextMessPopupBox
+
+                    id: contentTextMessPopupBox                  
                     font.pixelSize: 32
                     x: 200
-                    text: ""
-                }
+                    text: Teacher.messPopup
+                }              
             }
-
         }
 
     }

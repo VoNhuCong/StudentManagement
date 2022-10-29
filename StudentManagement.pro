@@ -33,4 +33,5 @@ HEADERS += \
 
 DISTFILES += \
     resource/HidePassIcon.png \
-    resource/ShowPassIcon.png
+    resource/ShowPassIcon.png \
+    resource/del.png
