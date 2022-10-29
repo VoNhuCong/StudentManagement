@@ -1,5 +1,5 @@
-#ifndef CONNECTSQL_H
-#define CONNECTSQL_H
+#ifndef DATABASEMANAGER_H
+#define DATABASEMANAGER_H
 
 #include <QSqlDatabase>
 #include <QSqlError>
@@ -8,12 +8,12 @@
 #include <QVector>
 #include "student.h"
 
-#define DATABASEMANAGER ConnectSQL::getInstance()
+#define DATABASEMANAGER DatabaseManager::getInstance()
 
-class ConnectSQL
+class DatabaseManager
 {
 public:
-    ConnectSQL();
+    DatabaseManager();
     void initTable();
     void insertNewStudent(int studentId, QString name, QString date, QString graduate, int teacherId);
     bool insertNewTeacher(int id, QString name, QString pass);
@@ -21,13 +21,13 @@ public:
     void genData();
     int checkAccount(QString name, QString password);
     QVector<QObject*> getAllStudentByTeachId(int teacherId);
-    static ConnectSQL *getInstance();
+    static DatabaseManager *getInstance();
 
 
 private:
     QSqlDatabase _myDb;
-    static ConnectSQL* _connectSql;
+    static DatabaseManager* _connectSql;
 };
 
 
-#endif // CONNECTSQL_H
+#endif // DATABASEMANAGER_H

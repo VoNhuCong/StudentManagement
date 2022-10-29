@@ -1,6 +1,6 @@
 #include "appcontroller.h"
 #include <QRandomGenerator>
-#include "classes/connectsql.h"
+#include "classes/databasemanager.h"
 
 AppController::AppController()
 {
@@ -37,6 +37,7 @@ Teacher* AppController::getCurTeacher()
 
 void AppController::checkLogin(QString name, QString password)
 {
+    if(_teacher == NULL) _teacher = new Teacher();
     _teacher->setTeacherName(name);
     _teacher->setTeacherPassword(password);
     int teacherId = DATABASEMANAGER->checkAccount(name, password);
@@ -50,6 +51,13 @@ void AppController::checkLogin(QString name, QString password)
     }else{
         setMessBox("Login Failed");
     }
+}
+
+void AppController::onLogout()
+{
+    setAppScreenId(0);
+    delete _teacher;
+    _teacher = NULL;
 }
 
 QString AppController::checkMessBox()

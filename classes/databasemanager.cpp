@@ -1,11 +1,11 @@
-#include "connectsql.h"
+#include "databasemanager.h"
 #include <QDebug>
 #include "student.h"
 
 
-ConnectSQL* ConnectSQL::_connectSql = NULL;
+DatabaseManager* DatabaseManager::_connectSql = NULL;
 
-ConnectSQL::ConnectSQL()
+DatabaseManager::DatabaseManager()
 {
     _myDb = QSqlDatabase::addDatabase("QSQLITE");
     _myDb.setDatabaseName(QDir::currentPath()+"/myDb.db");
@@ -13,7 +13,7 @@ ConnectSQL::ConnectSQL()
     initTable();
 }
 
-void ConnectSQL::initTable()
+void DatabaseManager::initTable()
 {
     if (!_myDb.open()) {
         return;
@@ -25,7 +25,7 @@ void ConnectSQL::initTable()
                "name varchar(50), pass varchar(50))");
 }
 
-void ConnectSQL::insertNewStudent(int studentId, QString name, QString date, QString graduate, int teacherId)
+void DatabaseManager::insertNewStudent(int studentId, QString name, QString date, QString graduate, int teacherId)
 {
     if (!_myDb.open()) {
         return;
@@ -37,7 +37,7 @@ void ConnectSQL::insertNewStudent(int studentId, QString name, QString date, QSt
     qDebug() << __FUNCTION__ << "Insert new student successfully";
 }
 
-bool ConnectSQL::insertNewTeacher(int id, QString name, QString pass)
+bool DatabaseManager::insertNewTeacher(int id, QString name, QString pass)
 {
     if (!_myDb.open()) {
         return false;
@@ -55,7 +55,7 @@ bool ConnectSQL::insertNewTeacher(int id, QString name, QString pass)
     }
 }
 
-void ConnectSQL::deleteStudent(int studentId)
+void DatabaseManager::deleteStudent(int studentId)
 {
     QString newQuery = QString("delete from students where id = %1").arg(studentId);
     QSqlQuery query;
@@ -67,7 +67,7 @@ void ConnectSQL::deleteStudent(int studentId)
     }
 }
 
-void ConnectSQL::genData()
+void DatabaseManager::genData()
 {
     for(int i = 0; i < 100; i ++){
         QString name = QString("vonhucong%1").arg(i);
@@ -80,7 +80,7 @@ void ConnectSQL::genData()
 
 }
 
-int ConnectSQL::checkAccount(QString name, QString password)
+int DatabaseManager::checkAccount(QString name, QString password)
 {
     if (!_myDb.open()) {
         return -1;
@@ -102,7 +102,7 @@ int ConnectSQL::checkAccount(QString name, QString password)
     }
 }
 
-QVector<QObject *> ConnectSQL::getAllStudentByTeachId(int teacherId)
+QVector<QObject *> DatabaseManager::getAllStudentByTeachId(int teacherId)
 {
     //SELECT * FROM students WHERE teacherId = 0
     QString newQuery = QString("SELECT * FROM students WHERE teacherId = %1").arg(teacherId);
@@ -127,9 +127,9 @@ QVector<QObject *> ConnectSQL::getAllStudentByTeachId(int teacherId)
     }
 }
 
-ConnectSQL* ConnectSQL::getInstance() {
+DatabaseManager* DatabaseManager::getInstance() {
    if (_connectSql == NULL) {
-      _connectSql = new ConnectSQL();
+      _connectSql = new DatabaseManager();
    }
    return(_connectSql);
 }

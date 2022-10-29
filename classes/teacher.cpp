@@ -1,12 +1,22 @@
 #include "teacher.h"
 #include "student.h"
-#include "connectsql.h"
+#include "databasemanager.h"
 #include <iostream>
 #include <string>
 
 Teacher::Teacher()
 {
 
+}
+
+Teacher::~Teacher()
+{
+    for(auto student : _studentList){
+        if(student){
+            delete student;
+        }
+    }
+    _studentList.clear();
 }
 
 void Teacher::setTeacherName(QString name)

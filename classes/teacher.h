@@ -9,6 +9,7 @@ class Teacher : public QObject
     Q_PROPERTY(QString messPopup READ messPopup WRITE setMessPopup NOTIFY messPopupChanged)
 public: 
     Teacher();
+    ~Teacher();
     void setTeacherName(QString name);
     void setTeacherPassword(QString pass);
     void setTeacherId(int id);

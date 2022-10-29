@@ -10,6 +10,11 @@ Student::Student()
 
 }
 
+Student::~Student()
+{
+
+}
+
 Student::Student(int index, QString name, QDate date, QString graduate)
 {
     _studentName = name;

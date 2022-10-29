@@ -14,8 +14,8 @@ Item {
                 anchors.fill: parent
                 width: parent.width
                 ToolButton {
-                    text: qsTr("Back")
-                    //onClicked: stack.pop()
+                    text: qsTr("Logout")
+                    onClicked: AppControl.onLogout()
                 }
                 Label {
                     text: "Students List"
@@ -59,7 +59,7 @@ Item {
 
                     onClicked: {
                         console.log("deleteall")
-                        Teacher.deleteAllStudents
+                        Teacher.deleteAllStudents()
                     }
                 }
         }

@@ -19,6 +19,7 @@ public:
 
 
     Q_INVOKABLE void checkLogin(QString name, QString password);
+    Q_INVOKABLE void onLogout();
     Q_INVOKABLE QString checkMessBox();
     Q_INVOKABLE void checkCreateAccout(QString accout, QString password);
 

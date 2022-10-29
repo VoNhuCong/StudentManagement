@@ -15,6 +15,7 @@ class Student : public QObject
 public:
     //explicit Student(QObject *parent = nullptr);
     Student();
+    ~Student();
     Student(int index, QString name, QDate date, QString graduate);
 
 public:

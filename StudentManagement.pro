@@ -7,9 +7,9 @@ QT += sql
 
 SOURCES += \
         classes/appcontroller.cpp \
+        classes/databasemanager.cpp \
         classes/teacher.cpp \
         classes/student.cpp\
-        classes/connectsql.cpp \
         main.cpp
 
 RESOURCES += qml.qrc
@@ -27,7 +27,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     classes/appcontroller.h \
-    classes/connectsql.h \
+    classes/databasemanager.h \
     classes/student.h \
     classes/teacher.h
 
