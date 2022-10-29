@@ -57,15 +57,43 @@ Item {
         }
     }
 
+    Rectangle {
+        id: studentsInforLabel
+        x: 0
+        y: toolBarTop.height
+        width: parent.width
+        height: 60
+        Text {
+            x: 10
+            text: "Id"
+            font.pixelSize: 32
+        }
+        Text {
+            x: parent.width/4 - 100
+            text: "Name"
+            font.pixelSize: 32
+        }
+        Text {
+            x: parent.width/2
+            text: "Date"
+            font.pixelSize: 32
+        }
+        Text {
+            x: parent.width*3/4
+            text: "Graduate"
+            font.pixelSize: 32
+        }
+    }
+
     ListView {
         id: idListView
-        y: toolBarTop.height
+        y: toolBarTop.height + 50
         width: 1080
         height: 600 - toolBarTop.height - toolBarBottom.height
         clip: true
 
         Rectangle {
-            color: "grey"
+            color: "white"
             radius: 10
             anchors.fill: parent
             anchors.rightMargin: 0
@@ -87,51 +115,39 @@ Item {
             id: studentsRec
             x:0
             width: idListView.width
-            height: 80
-            radius: 10
+            height: 60
+            //radius: 10
             border {
-                width: 5
-                color: "yellow"
+                width: 2
+                color: "gray"
             }
             Text {
+                id:  idStudentListView
                 x: 10
+                text: modelData.studentId
+                font.pixelSize: 32
+                color: "black"
+            }
+            Text {
+                id: nameStudentListView
+                x: parent.width/4 - 100
                 text: modelData.studentName
                 font.pixelSize: 32
-                color: "blue"
+                color: "black"
             }
             Text {
-                id: idTextDateCreateAlbum
-                x: 10
-                y: (parent.height)/2.0
-                text: modelData.studentName
-                font.pixelSize: 16
-                color: "blue"
+                id: dateStudentListView
+                x: parent.width/2
+                text: modelData.studentDate
+                font.pixelSize: 32
+                color: "black"
             }
             Text {
-                id: idText1
-                y: (parent.height)/2.0
-                anchors.left: idTextDateCreateAlbum.right
-                anchors.leftMargin: 5
-                text: ", "
-                font.pixelSize: 16
-                color: "blue"
-            }
-            Text {
-                id: idText2
-                y: (parent.height)/2.0
-                anchors.left: idText1.right
-                text: modelData.studentName
-                font.pixelSize: 16
-                color: "blue"
-            }
-            Text {
-                id: idText3
-                y: (parent.height)/2.0
-                anchors.left: idText2.right
-                anchors.leftMargin: 5
-                text: "items"
-                font.pixelSize: 16
-                color: "blue"
+                id: graduateStudentListView
+                x: parent.width*3/4
+                text: modelData.studentGraduate
+                font.pixelSize: 32
+                color: "black"
             }
 
         }

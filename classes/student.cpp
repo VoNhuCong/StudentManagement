@@ -68,7 +68,37 @@ QString Student::studentName() const
     return _studentName;
 }
 
+QString Student::studentDate() const
+{
+    return _date.toString("dd.MM.yyyy");
+}
+
+QString Student::studentId() const
+{
+    return QString::number(_studentId);
+}
+
+QString Student::studentGraduate() const
+{
+    return _graduate;
+}
+
 void Student::setStudentName(const QString &studentName)
+{
+
+}
+
+void Student::setStudentDate(const QString &studentDate)
+{
+
+}
+
+void Student::setStudentId(const QString &studentId)
+{
+
+}
+
+void Student::setStudentGraduate(const QString &studentGraduate)
 {
 
 }

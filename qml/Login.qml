@@ -176,7 +176,7 @@ Item {
             {
                 id: messBox
                 width: 200
-                x: 20
+                x: idPassword.x
                 y: 200
                 Text {
                     id: idMess
