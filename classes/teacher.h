@@ -27,9 +27,10 @@ public:
     QString messCreateStudentBox() const;
     QString messPopup() const;
 
-    Q_INVOKABLE void createNewStudent(QString index, QString name, QString date, QString graduate);
-    Q_INVOKABLE void deleteStudentByPos(int pos);
-    Q_INVOKABLE void deleteAllStudents();
+    Q_INVOKABLE void onCreateNewStudent(QString index, QString name, QString date, QString graduate);
+    Q_INVOKABLE void onDeleteStudentByPos(int pos);
+    Q_INVOKABLE void onDeleteAllStudents();
+    Q_INVOKABLE void onCancelCreateNewStudent();
 public slots:
     void setStudentList(QList<QObject*> studentList);
     void setMessPopup(QString mess);

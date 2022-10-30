@@ -59,7 +59,7 @@ Item {
 
                     onClicked: {
                         console.log("deleteall")
-                        Teacher.deleteAllStudents()
+                        Teacher.onDeleteAllStudents()
                     }
                 }
         }
@@ -163,7 +163,7 @@ Item {
                 text: "del"
                 onClicked:{
                     console.log("delete:", index)
-                    Teacher.deleteStudentByPos(index)
+                    Teacher.onDeleteStudentByPos(index)
                 }
             }
         }
@@ -190,12 +190,19 @@ Item {
                 text: "Create Student"
                 onClicked: {
                     console.log("CreateStudent with Id", indexStudentBoxInput.text, ", Name: ", nameStudentInput.text)
-                    Teacher.createNewStudent(indexStudentBoxInput.text, nameStudentInput.text , dateStudentInput.text, graduateStudentInput.text);
+                    Teacher.onCreateNewStudent(indexStudentBoxInput.text, nameStudentInput.text , dateStudentInput.text, graduateStudentInput.text);
                 }
             }
             Button {
                 text: "Cancel"
-                onClicked: popupCreateStudent.close()
+                onClicked:{
+                    indexStudentBoxInput.text = ""
+                    nameStudentInput.text = ""
+                    dateStudentInput.text = ""
+                    graduateStudentInput.text = ""
+                    Teacher.onCancelCreateNewStudent()
+                    popupCreateStudent.close()
+                }
             }
         }
 
@@ -361,16 +368,12 @@ Item {
                 font.pixelSize: 32
                 text: qsTr("Message: ")
             }
-            Rectangle
-            {
-                id: contentMessPopupBox
-                Text {
+            Text {
 
-                    id: contentTextMessPopupBox                  
-                    font.pixelSize: 32
-                    x: 200
-                    text: Teacher.messPopup
-                }              
+                id: contentTextMessPopupBox
+                font.pixelSize: 32
+                x: 200
+                text: Teacher.messPopup
             }
         }
 

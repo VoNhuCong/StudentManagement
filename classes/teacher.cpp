@@ -126,7 +126,7 @@ QString Teacher::messPopup() const
     return _messagePopup;
 }
 
-void Teacher::createNewStudent(QString index, QString name, QString date, QString graduate)
+void Teacher::onCreateNewStudent(QString index, QString name, QString date, QString graduate)
 {
     if(!isValidForNewStudent(index))return;
 
@@ -144,7 +144,7 @@ void Teacher::createNewStudent(QString index, QString name, QString date, QStrin
     setMessPopup("Create new student\nsuccesfully");
 }
 
-void Teacher::deleteStudentByPos(int pos)
+void Teacher::onDeleteStudentByPos(int pos)
 {
     if(pos > _studentList.size()) return;
     int studentId =  static_cast<Student*>(_studentList[pos])->getStudentId();
@@ -154,7 +154,7 @@ void Teacher::deleteStudentByPos(int pos)
     DATABASEMANAGER->deleteStudent(studentId);
 }
 
-void Teacher::deleteAllStudents()
+void Teacher::onDeleteAllStudents()
 {
     for(int i = 0; i < _studentList.size(); i++){
         Student* student = static_cast<Student*>(_studentList[i]);
@@ -162,6 +162,11 @@ void Teacher::deleteAllStudents()
     }
     _studentList.clear();
     setStudentList(_studentList);
+}
+
+void Teacher::onCancelCreateNewStudent()
+{
+    setMessPopup("");
 }
 
 void Teacher::setStudentList(QList<QObject *> studentList)
