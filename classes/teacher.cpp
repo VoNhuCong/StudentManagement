@@ -59,11 +59,9 @@ bool Teacher::isValidForNewStudent(QString studentId)
         setMessPopup("Invalid Id! \nId is interger number");
         return false;
     }
-    for(int i = 0; i < _studentList.size(); i++){
-        if(studentId.toInt() == static_cast<Student*>(_studentList[i])->getStudentId()){
-            setMessPopup("This id already exists!");
-            return false;
-        }
+    if(DATABASEMANAGER->isExistStudentId(studentId)){
+        setMessPopup("This id already exists!");
+        return false;
     }
     return true;
 }
@@ -94,6 +92,15 @@ bool Teacher::isValidDateInput(QString date)
         setMessPopup("Enter date follow: \ndd/mm/yyyy");
         return false;
     }
+}
+
+bool Teacher::isValidNameInput(QString name)
+{
+    if(name == ""){
+        setMessPopup("Enter name!");
+        return false;
+    }
+    return true;
 }
 
 int Teacher::getIdTeacher()
@@ -130,16 +137,19 @@ void Teacher::onCreateNewStudent(QString index, QString name, QString date, QStr
 {
     if(!isValidForNewStudent(index))return;
 
+    if(!isValidNameInput(name)) return;
+
     if(!isValidDateInput(date)) return;
 
     if(!isValidGraduate(graduate)) return;
 
     QDate dateStudent = QDate::fromString(date,"dd/MM/yyyy");
+
     Student* newStudent = new Student(index.toInt(), name, dateStudent, graduate);
     _studentList.push_back(newStudent);
     emit studentListChanged(_studentList);
+
     DATABASEMANAGER->insertNewStudent(index.toInt(), name, date, graduate, _id);
-    qDebug() << __FUNCTION__ << "index: " << index << "name: " << name << "date: " << date << "graduate: " << graduate;
 
     setMessPopup("Create new student\nsuccesfully");
 }

@@ -19,6 +19,7 @@ public:
     bool isValidForNewStudent(QString studentId);
     bool isValidGraduate(QString graduate);
     bool isValidDateInput(QString date);
+    bool isValidNameInput(QString name);
 
     int getIdTeacher();
     QString getTeacherName();

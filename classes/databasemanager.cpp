@@ -55,6 +55,25 @@ bool DatabaseManager::insertNewTeacher(int id, QString name, QString pass)
     }
 }
 
+bool DatabaseManager::isExistStudentId(QString id)
+{
+    QString newQuery = QString("SELECT * FROM students WHERE id = %1").arg(id);
+    QSqlQuery query;
+    try {
+        query.exec(newQuery);
+        while(query.next()){
+            int id = query.value(0).toInt();
+            if(id != 0) {
+                return true;
+                break;
+            }
+        }
+    }
+    catch (_exception e) {
+    }
+    return false;
+}
+
 void DatabaseManager::deleteStudent(int studentId)
 {
     QString newQuery = QString("delete from students where id = %1").arg(studentId);
@@ -65,19 +84,6 @@ void DatabaseManager::deleteStudent(int studentId)
     catch (_exception e) {
         qDebug() << __FUNCTION__ << "delete student error";
     }
-}
-
-void DatabaseManager::genData()
-{
-    for(int i = 0; i < 100; i ++){
-        QString name = QString("vonhucong%1").arg(i);
-        insertNewStudent(i, "vonhucong", "11/11/2002", "dsdsd", 123);
-    }
-    for(int i = 0; i < 100; i ++){
-        QString name = QString("vonhucong%1").arg(i);
-        insertNewTeacher(i, name, "dsd");
-    }
-
 }
 
 int DatabaseManager::checkAccount(QString name, QString password)
@@ -104,7 +110,6 @@ int DatabaseManager::checkAccount(QString name, QString password)
 
 QVector<QObject *> DatabaseManager::getAllStudentByTeachId(int teacherId)
 {
-    //SELECT * FROM students WHERE teacherId = 0
     QString newQuery = QString("SELECT * FROM students WHERE teacherId = %1").arg(teacherId);
     QSqlQuery query;
     QVector<QObject *> studentList;
@@ -125,6 +130,7 @@ QVector<QObject *> DatabaseManager::getAllStudentByTeachId(int teacherId)
     }
     catch (_exception e) {
     }
+    return studentList;
 }
 
 DatabaseManager* DatabaseManager::getInstance() {
