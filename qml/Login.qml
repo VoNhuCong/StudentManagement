@@ -90,8 +90,9 @@ Item {
                         id: idPassShowHide
                         width: 36
                         height: 36
+                        x: passwordBox.width - 42
                         anchors {
-                            right: passwordBox.right
+                            //right: passwordBox.right
                             verticalCenter: passwordBox.verticalCenter
                         }
                         icon.name: "showHidePass"
