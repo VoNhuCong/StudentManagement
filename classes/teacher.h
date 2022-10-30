@@ -15,6 +15,7 @@ public:
     void setTeacherId(int id);
     void getStudentsFromDataBase();
     void setStudentList1(QVector<QObject*> studentList);
+    void deleteAllStudent();
     bool isValidForNewStudent(QString studentId);
     bool isValidGraduate(QString graduate);
     bool isValidDateInput(QString date);

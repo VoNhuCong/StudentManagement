@@ -55,9 +55,8 @@ void AppController::checkLogin(QString name, QString password)
 
 void AppController::onLogout()
 {
+    _teacher->deleteAllStudent();
     setAppScreenId(0);
-    delete _teacher;
-    _teacher = NULL;
 }
 
 QString AppController::checkMessBox()

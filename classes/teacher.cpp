@@ -11,12 +11,7 @@ Teacher::Teacher()
 
 Teacher::~Teacher()
 {
-    for(auto student : _studentList){
-        if(student){
-            delete student;
-        }
-    }
-    _studentList.clear();
+
 }
 
 void Teacher::setTeacherName(QString name)
@@ -42,6 +37,16 @@ void Teacher::getStudentsFromDataBase()
 void Teacher::setStudentList1(QVector<QObject *> studentList)
 {
     _studentList = studentList;
+}
+
+void Teacher::deleteAllStudent()
+{
+    for(auto student : _studentList){
+        if(student){
+            delete student;
+        }
+    }
+    _studentList.clear();
 }
 
 bool Teacher::isValidForNewStudent(QString studentId)
